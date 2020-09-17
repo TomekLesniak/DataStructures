@@ -46,6 +46,8 @@
     <Compile Include="Heap\Heap.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tree\Node.cs" />
+    <Compile Include="Tree\Tree.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
