@@ -33,9 +33,33 @@ namespace DataStructures.Heap
                 BubbleUp(index);
         }
 
+        public int Remove()
+        {
+            if (IsEmpty())
+                throw new InvalidOperationException("Heap is empty");
+
+            var root = heap[0];
+
+            var index = 0; // always removing root node
+            heap[index] = heap[--size];
+
+            if (heap[index] < heap[GetIndexOfLeftChild(index)]
+                || heap[index] < heap[GetIndexOfRightChild(index)])
+            {
+                BubbleDown(index);
+            }
+
+            return root;
+        }
+
         public bool IsFull()
         {
             return size == heap.Length;
+        }
+
+        public bool IsEmpty()
+        {
+            return size == 0;
         }
 
         private void BubbleUp(int index)
@@ -52,7 +76,22 @@ namespace DataStructures.Heap
             BubbleUp(GetParentIndex(index));
         }
 
+        private void BubbleDown(int index)
+        {
+            if (index > size)
+                return;
 
+            var biggerIndex = GetIndexOfGreaterValue(index);
+
+            if (heap[index] >= heap[biggerIndex])
+                return;
+
+            var temp = heap[biggerIndex];
+            heap[biggerIndex] = heap[index];
+            heap[index] = temp;
+
+            BubbleDown(biggerIndex);
+        }
 
         private int GetIndexOfLeftChild(int parentIndex)
         {
@@ -67,6 +106,39 @@ namespace DataStructures.Heap
         private int GetParentIndex(int childIndex)
         {
             return (childIndex - 1) / 2;
+        }
+
+        private int GetIndexOfGreaterValue(int index)
+        {
+            if (GetIndexOfRightChild(index) > size)
+            {
+                if (GetIndexOfLeftChild(index) > size)
+                    return index;
+                return GetIndexOfLeftChild(index);
+            }
+
+            return (heap[GetIndexOfLeftChild(index)] > heap[GetIndexOfRightChild(index)])
+                ? GetIndexOfLeftChild(index)
+                : GetIndexOfRightChild(index);
+        }
+
+        private int GetIndexOfValue(int value)
+        {
+            for (int i = 0; i < size; i++)
+            {
+                if (heap[i] == value)
+                    return i;
+            }
+
+            return -1;
+        }
+
+        private bool IsLastChild(int index)
+        {
+            if (index == size)
+                return true;
+
+            return false;
         }
     }
 }
