@@ -122,23 +122,5 @@ namespace DataStructures.Heap
                 : GetIndexOfRightChild(index);
         }
 
-        private int GetIndexOfValue(int value)
-        {
-            for (int i = 0; i < size; i++)
-            {
-                if (heap[i] == value)
-                    return i;
-            }
-
-            return -1;
-        }
-
-        private bool IsLastChild(int index)
-        {
-            if (index == size)
-                return true;
-
-            return false;
-        }
     }
 }
