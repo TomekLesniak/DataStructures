@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataStructures.SortingAlgorithms
 {
+
     public class BubbleSort
     {
         public static void Sort(int[] numbers)
